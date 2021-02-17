@@ -8,7 +8,7 @@
 import Foundation
 
 class CardDeck {
-    private var cards = [Card]()
+    private(set) var cards = [Card]()
     private let initialCards: [Card]
     
     init() {
@@ -21,7 +21,7 @@ class CardDeck {
         self.initialCards = self.cards
     }
     
-    func countCard() -> Int {
+    func count() -> Int {
         return cards.count
     }
     
@@ -29,15 +29,11 @@ class CardDeck {
         cards.shuffle()
     }
     
-    func takeOutCard() -> Card {
-        return cards.removeFirst()
+    func takeOutCard() -> Card? {
+        return cards.count != 0 ? cards.removeFirst() : nil
     }
     
     func reset() {
         cards = initialCards
-    }
-    
-    func showCardDect() -> [Card] {
-        return cards
     }
 }
