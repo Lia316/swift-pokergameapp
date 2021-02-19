@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     let cardBackImage = UIImage(named: "card-back.png")
+    var num = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,8 +19,8 @@ class ViewController: UIViewController {
         showCards(cardNum: 7)
         
         // PokerGame start
-        let poker = PokerGame(cardNum: 5, playerNum: 4)
-        poker.playGame()
+        playGame()
+        
     }
     
     // MARK:- Card UI
@@ -63,5 +64,23 @@ class ViewController: UIViewController {
         cardStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         cardStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
     }
+    
+    let poker = PokerGame(cardNum: .seven, playerNum: .four)
+    
+    func playGame() {
+        for round in 1...poker.round {
+            poker.roundStart()
+            
+            poker.openCard(isFinal: round == poker.round)
+            print(poker.judgeHighCard())
+        }
+    }
+    
+    @IBAction func BettingButton(_ sender: UIButton) {
+        if let money = sender.currentTitle {
+            poker.betting(who: .one, money: Int(money) ?? 0)
+        }
+    }
+    
 }
 

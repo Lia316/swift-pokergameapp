@@ -16,22 +16,17 @@ enum PlayerNumber: Int, CaseIterable {
     case one = 1, two, three, four
 }
 
-enum Round: Int {
-    case first = 1, second, third, forth, fifth
-}
-
-
 class PokerGame {
     let cardNum: PokerType
     let playerNum: PlayerNumber
-    let round: Round
+    let round: Int
     private var players: Players
     private var dealer: Dealer
     
     init(cardNum: PokerType, playerNum: PlayerNumber) {
         self.cardNum = cardNum
         self.playerNum = playerNum
-        self.round = cardNum == .five ? Round.forth : Round.fifth
+        self.round = cardNum == .five ? 4 : 5
         self.players = Players(playerNum: self.playerNum)
         self.dealer = Dealer(cardNum: cardNum)
     }
